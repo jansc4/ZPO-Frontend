@@ -1,0 +1,22 @@
+.BookElement {
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+}
+.BookElement .customBox {
+    /* Stylizacja komponentu Box */
+
+    display: inline-block; /* Ustawienie na inline-block */
+    border: 1px solid black; /* Dodatkowe style dla celów demonstracyjnych */
+    border-radius: 1px;
+    background-color: #46dc05;
+    text-align: center;
+    text-size-adjust: auto;
+}
+
+.BookElement .customBox:hover {
+    background-color: #0066CC;
+}
