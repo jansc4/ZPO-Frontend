@@ -3,13 +3,18 @@ import './LoginForm.css';
 import { Button, TextField } from '@mui/material';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { useNavigate } from 'react-router-dom';
+import LoginIcon from '@mui/icons-material/Login';
 
 function LoginForm() {
+  const navigate = useNavigate();
+
   const onSubmit = useCallback(
     (values: { username: string; password: string }, formik: any) => {
-      console.log(values);
+      navigate('/home');
+      console.log('/home');
     },
-    [],
+    [navigate],
   );
 
   const validationSchema = useMemo(
@@ -25,6 +30,7 @@ function LoginForm() {
   );
   return (
     <>
+      <h1 id="title">Library</h1>
       <Formik
         initialValues={{ username: '', password: '' }}
         onSubmit={onSubmit}

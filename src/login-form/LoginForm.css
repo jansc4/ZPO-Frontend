@@ -1,8 +1,28 @@
+#title {
+  text-align: center;
+  color: white;
+}
+
 .Login-form {
+
   padding: 5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 2rem;
   align-items: center;
+  background-color: white;
+  max-width: 200px;
+  margin: 0 auto;
+  border-radius: 10px; /* Zaokrąglenie brzegów formularza */
+  border: 2px solid #ccc;
+}
+body{
+  margin: 0;
+  padding: 0;
+  background-image: url("/src/photos/1339726.png");
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
 }

@@ -1,0 +1,22 @@
+.book-container {
+    display: inline-flex;
+    align-items: center;
+    border: 2px solid darkgreen;
+    background-color: darkseagreen;
+}
+
+.book-icon {
+    margin-right: 10px;
+    width: 4rem;
+    height: 4rem;
+}
+
+.book-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.book-author {
+    font-size: 14px;
+    color: #888;
+}
