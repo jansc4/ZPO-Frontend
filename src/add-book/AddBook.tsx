@@ -74,7 +74,12 @@ function AddBook() {
       <Button type="submit" variant="contained" className="submit-button">
         Add book
       </Button>
-      <Button variant="contained" component={Link} to="/home" sx={{ m: 1 }}>
+      <Button
+        variant="contained"
+        component={Link}
+        to="/home/books"
+        sx={{ m: 1 }}
+      >
         Cancel
       </Button>
     </Box>

@@ -1,50 +1,43 @@
 import { Box, Button } from '@mui/material';
 import { Link, Outlet } from 'react-router-dom';
-import BookList from '../book-list/BookList';
+import UserList from '../users-list/UsersList';
 import React, { useEffect, useState } from 'react';
-import { GetBookDto } from '../api/dto/book.dto';
+import { GetUserDto } from '../api/dto/user.dto';
 import { useApi } from '../api/ApiProvider';
-import './BooksPage.css';
+import './UsersPage.css';
 
-function BooksPage() {
-  const [books, setBooks] = useState<GetBookDto[]>([]);
+function UsersPage() {
+  const [users, setUsers] = useState<GetUserDto[]>([]);
   const apiClient = useApi();
 
   useEffect(() => {
-    apiClient.getAllBooks().then((data) => {
+    apiClient.getAllUsers().then((data) => {
       if (data.data) {
-        setBooks(data.data);
+        setUsers(data.data);
       }
     });
   }, [apiClient]);
 
   const handleRefresh = () => {
-    apiClient.getAllBooks().then((data) => {
+    apiClient.getAllUsers().then((data) => {
       if (data.data) {
-        setBooks(data.data);
+        setUsers(data.data);
       }
     });
   };
+
   return (
     <Box className="main-content">
       <Box className="left-content">
         <Box className="operations-buttons">
           <Button variant="contained" component={Link} to="add" sx={{ m: 1 }}>
-            Add book
-          </Button>
-          <Button
-            variant="contained"
-            component={Link}
-            to="delete"
-            sx={{ m: 1 }}
-          >
-            Delete book
+            Add user
           </Button>
           <Button variant="contained" onClick={handleRefresh} sx={{ m: 1 }}>
             Refresh
           </Button>
         </Box>
-        <BookList books={books} />
+        <UserList users={users} />
       </Box>
       <Box className="right-content">
         <Outlet />
@@ -52,4 +45,5 @@ function BooksPage() {
     </Box>
   );
 }
-export default BooksPage;
+
+export default UsersPage;

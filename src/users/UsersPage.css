@@ -13,12 +13,11 @@
 .right-content {
     flex: 1;
     padding: 16px;
-    /*border-left: 1px solid #ccc;*/
     height: 80vh;
     overflow-y: auto;
 }
 
-.book-operations {
+.user-operations {
     display: flex;
     flex-direction: column;
 }
@@ -28,10 +27,8 @@
     flex-direction: column;
     margin-bottom: 16px;
     justify-content: center;
-
 }
 
 .operations-buttons > .MuiButton-root {
     margin-bottom: 8px;
-
 }

@@ -1,0 +1,13 @@
+.add-user {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    max-width: 400px;
+}
+
+.add-user > .MuiTextField-root,
+.add-user > .MuiButton-root {
+    margin-bottom: 16px;
+}

@@ -1,0 +1,25 @@
+.user-list-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-list {
+    width: 100%;
+    max-width: 400px;
+    max-height: 580px;
+    border-radius: 8px;
+    overflow: auto;
+}
+
+.user-list-header {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 1;
+}
+
+.user-list-item {
+    max-width: 360px;
+    width: 100%;
+}

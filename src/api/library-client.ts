@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import { LoginDto, LoginResponseDto } from './dto/login.dto';
 import { CreateBookDto, GetBookDto } from './dto/book.dto';
+import { GetUserDto, RegisterDto } from './dto/user.dto';
 
 export type ClientResponse<T> = {
   success: boolean;
@@ -61,6 +62,28 @@ export class LibraryClient {
       };
     }
   }
+  public async registerUser(
+    data: RegisterDto, // Zakładając, że masz odpowiedni DTO dla tworzenia użytkownika
+  ): Promise<ClientResponse<RegisterDto | null>> {
+    try {
+      const response: AxiosResponse<RegisterDto> = await this.client.post(
+        '/api/auth/register',
+        data,
+      );
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError: AxiosError<Error, any> = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
 
   public async deleteBook(id: number): Promise<ClientResponse<boolean>> {
     try {
@@ -86,6 +109,24 @@ export class LibraryClient {
     try {
       const response: AxiosResponse<GetBookDto[]> =
         await this.client.get(`/api/books`);
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError: AxiosError<Error, any> = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+  public async getAllUsers(): Promise<ClientResponse<GetUserDto[] | null>> {
+    try {
+      const response: AxiosResponse<GetUserDto[]> =
+        await this.client.get(`/api/users`);
       return {
         success: true,
         data: response.data,

@@ -1,0 +1,23 @@
+.user-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #46dc05;
+    padding: 16px;
+    border-radius: 8px;
+}
+.user-main-data,
+.user-secondary-data {
+    margin-bottom: 8px;
+}
+.divider {
+    border: 1px solid #555;
+    margin: 16px 0;
+}
+.user-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+.user-username {
+    font-size: 14px;
+    color: #888;
+}
