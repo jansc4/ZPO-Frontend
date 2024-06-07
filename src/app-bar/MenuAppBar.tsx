@@ -7,64 +7,136 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { Route, Navigate, BrowserRouter } from 'react-router-dom';
+
+function HomePage() {
+  return <div>Home Page Content</div>;
+}
+
+function ProfilePage() {
+  return <div>Profile Page Content</div>;
+}
+
+function AccountPage() {
+  return <div>Account Page Content</div>;
+}
 
 export default function MenuAppBar() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [menuAnchorEl, setMenuAnchorEl] = React.useState<null | HTMLElement>(
+    null,
+  );
+  const [accountAnchorEl, setAccountAnchorEl] =
+    React.useState<null | HTMLElement>(null);
 
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setMenuAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleAccountOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAccountAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setMenuAnchorEl(null);
+  };
+
+  const handleAccountClose = () => {
+    setAccountAnchorEl(null);
   };
 
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2 }}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Photos
-        </Typography>
-        <div>
+    <Router>
+      <AppBar position="static">
+        <Toolbar>
           <IconButton
             size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleMenu}
+            edge="start"
             color="inherit"
+            aria-label="menu"
+            aria-controls="menu"
+            aria-haspopup="true"
+            onClick={handleMenuOpen}
+            sx={{ mr: 2 }}
           >
-            <AccountCircle />
+            <MenuIcon />
           </IconButton>
+
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Menu
+          </Typography>
+
           <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
+            id="menu"
+            anchorEl={menuAnchorEl}
             anchorOrigin={{
               vertical: 'top',
-              horizontal: 'right',
+              horizontal: 'left',
             }}
             keepMounted
             transformOrigin={{
               vertical: 'top',
-              horizontal: 'right',
+              horizontal: 'left',
             }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
+            open={Boolean(menuAnchorEl)}
+            onClose={handleMenuClose}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
+            <MenuItem component={Link} to="/profile" onClick={handleMenuClose}>
+              Profile
+            </MenuItem>
+            <MenuItem component={Link} to="/account" onClick={handleMenuClose}>
+              My account
+            </MenuItem>
           </Menu>
-        </div>
-      </Toolbar>
-    </AppBar>
+
+          <div>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleAccountOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={accountAnchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(accountAnchorEl)}
+              onClose={handleAccountClose}
+            >
+              <MenuItem
+                component={Link}
+                to="/profile"
+                onClick={handleAccountClose}
+              >
+                Profile
+              </MenuItem>
+              <MenuItem
+                component={Link}
+                to="/account"
+                onClick={handleAccountClose}
+              >
+                My account
+              </MenuItem>
+            </Menu>
+          </div>
+        </Toolbar>
+      </AppBar>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/profile" component={ProfilePage} />
+        <Route path="/account" component={AccountPage} />
+      </Switch>
+    </Router>
   );
 }

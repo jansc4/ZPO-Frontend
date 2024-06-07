@@ -1,42 +1,59 @@
+import React, { useEffect, useState } from 'react';
 import { Box, Button } from '@mui/material';
-import MenuAppBar from '../app-bar/MenuAppBar';
 import { Link, Outlet } from 'react-router-dom';
+import MenuAppBar from '../app-bar/MenuAppBar';
 import BookList from '../book-list/BookList';
+import { useApi } from '../api/ApiProvider';
+import { GetBookDto } from '../api/dto/book.dto';
+import './HomePage.css';
 
 function HomePage() {
-  const books = [
-    { title: 'Harry Potter', author: 'J.K. Rowling', year: 1997 },
-    { title: 'Lord of the Rings', author: 'J.R.R. Tolkien', year: 1954 },
-  ];
+  const [books, setBooks] = useState<GetBookDto[]>([]);
+  const apiClient = useApi();
+
+  useEffect(() => {
+    apiClient.getAllBooks().then((data) => {
+      if (data.data) {
+        setBooks(data.data);
+      }
+    });
+  }, [apiClient]);
+
+  const handleRefresh = () => {
+    apiClient.getAllBooks().then((data) => {
+      if (data.data) {
+        setBooks(data.data);
+      }
+    });
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <MenuAppBar />
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          padding: '10px',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            padding: '10px',
-          }}
-        >
-          <Button variant="contained" component={Link} to="1" sx={{ m: 1 }}>
-            Route 1
-          </Button>
-          <Button variant="contained" component={Link} to="2" sx={{ m: 1 }}>
-            Route 2
-          </Button>
+      <Box className="main-content">
+        <Box className="left-content">
+          <Box className="operations-buttons">
+            <Button variant="contained" component={Link} to="add" sx={{ m: 1 }}>
+              Add book
+            </Button>
+            <Button
+              variant="contained"
+              component={Link}
+              to="delete"
+              sx={{ m: 1 }}
+            >
+              Delete book
+            </Button>
+            <Button variant="contained" onClick={handleRefresh} sx={{ m: 1 }}>
+              Refresh
+            </Button>
+          </Box>
+          <BookList books={books} />
         </Box>
-        <BookList books={books} />
+        <Box className="right-content">
+          <Outlet />
+        </Box>
       </Box>
-      <Outlet />
     </Box>
   );
 }
