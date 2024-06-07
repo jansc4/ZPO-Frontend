@@ -9,8 +9,10 @@ import HomePage from './home-page/HomePage';
 import ApiProvider from './api/ApiProvider';
 import AddBook from './add-book/AddBook';
 import AddUser from './add-user/AddUser';
+import AddRental from './add-rental/AddRental';
 import BooksPage from './books/BooksPage';
 import UsersPage from './users/UsersPage';
+import RentalsPage from './rentals/RentalsPage';
 
 function App() {
   return (
@@ -26,7 +28,9 @@ function App() {
             <Route path="users" element={<UsersPage />}>
               <Route path="add" element={<AddUser />} />
             </Route>
-            <Route path="loans" element={<AddBook />} />
+            <Route path="loans" element={<RentalsPage />}>
+              <Route path="add" element={<AddRental />} />
+            </Route>
           </Route>
         </Routes>
       </ApiProvider>

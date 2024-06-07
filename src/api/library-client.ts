@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import { LoginDto, LoginResponseDto } from './dto/login.dto';
 import { CreateBookDto, GetBookDto } from './dto/book.dto';
 import { GetUserDto, RegisterDto } from './dto/user.dto';
+import { CreateRentalDto, GetRentalDto } from './dto/rental.dto';
 
 export type ClientResponse<T> = {
   success: boolean;
@@ -62,6 +63,32 @@ export class LibraryClient {
       };
     }
   }
+  public async addRental(data: {
+    book: number;
+    user: number;
+    rentalDate?: Date | null;
+    endRentalDate?: Date | null;
+  }): Promise<ClientResponse<CreateRentalDto | null>> {
+    try {
+      const response: AxiosResponse<CreateRentalDto> = await this.client.post(
+        '/api/rentals',
+        data,
+      );
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError: AxiosError<Error, any> = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
   public async registerUser(
     data: RegisterDto, // Zakładając, że masz odpowiedni DTO dla tworzenia użytkownika
   ): Promise<ClientResponse<RegisterDto | null>> {
@@ -127,6 +154,24 @@ export class LibraryClient {
     try {
       const response: AxiosResponse<GetUserDto[]> =
         await this.client.get(`/api/users`);
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError: AxiosError<Error, any> = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+  public async getAllRentals(): Promise<ClientResponse<GetRentalDto[] | null>> {
+    try {
+      const response: AxiosResponse<GetRentalDto[]> =
+        await this.client.get(`/api/rentals`);
       return {
         success: true,
         data: response.data,

@@ -1,0 +1,30 @@
+.rental-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #46dc05;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.rental-details {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.detail {
+    margin-bottom: 8px;
+}
+
+.detail > .MuiTypography-root {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.detail > .MuiTypography-root.subtitle1 {
+    font-size: 14px;
+    color: #888;
+}
+.missing-data {
+    color: red;
+}

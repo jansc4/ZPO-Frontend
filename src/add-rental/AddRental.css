@@ -1,0 +1,12 @@
+.add-rental {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    max-width: 400px;
+}
+
+.add-rental .text-field {
+    margin-bottom: 16px;
+}

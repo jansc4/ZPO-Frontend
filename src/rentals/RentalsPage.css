@@ -1,0 +1,57 @@
+.main-content {
+    display: flex;
+}
+
+.left-content {
+    flex: 2;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.right-content {
+    flex: 1;
+    padding: 16px;
+    /*border-left: 1px solid #ccc;*/
+    height: 80vh;
+    overflow-y: auto;
+}
+
+
+.operations-buttons {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    justify-content: center;
+}
+
+.operations-buttons > .MuiButton-root {
+    margin-bottom: 8px;
+}
+
+.rental-list-container {
+    display: flex;
+    justify-content: center;
+}
+
+.rental-list {
+    width: 100%;
+    max-width: 500px;
+    max-height: 580px;
+    border-radius: 8px;
+    overflow: auto;
+}
+
+.rental-list-header {
+    position: sticky;
+    top: 0;
+    /*background-color: #fff;*/
+    z-index: 1;
+}
+
+.rental-list-item {
+    max-width: 360px;
+    width: 100%;
+}
+
