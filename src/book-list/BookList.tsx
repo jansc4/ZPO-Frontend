@@ -6,24 +6,24 @@ import { GetBookDto } from '../api/dto/book.dto';
 
 interface BookListProps {
   books: GetBookDto[];
+  checked: number[];
+  setChecked: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
-function BookList({ books }: BookListProps) {
-  const [checked, setChecked] = useState<number[]>([]);
-
-  const handleToggle = (index: number) => () => {
-    const currentIndex = checked.indexOf(index);
+function BookList({ books, checked, setChecked }: BookListProps) {
+  const handleToggle = (bookId: number) => () => {
+    const currentIndex = checked.indexOf(bookId);
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
-      newChecked.push(index);
+      newChecked.push(bookId);
     } else {
       newChecked.splice(currentIndex, 1);
     }
 
     setChecked(newChecked);
   };
-  //console.log(books[0]);
+
   return (
     <div className="book-list-container">
       <List
@@ -34,14 +34,21 @@ function BookList({ books }: BookListProps) {
           </ListSubheader>
         }
       >
-        {books.map((book, index) => (
-          <ListItem key={index} dense button onClick={handleToggle(index)}>
+        {books.map((book) => (
+          <ListItem
+            key={book.id}
+            dense
+            button
+            onClick={handleToggle(book.id || 0)}
+          >
             <Checkbox
               edge="start"
-              checked={checked.indexOf(index) !== -1}
+              checked={checked.indexOf(book.id || 0) !== -1}
               tabIndex={-1}
               disableRipple
-              inputProps={{ 'aria-labelledby': `checkbox-list-label-${index}` }}
+              inputProps={{
+                'aria-labelledby': `checkbox-list-label-${book.id}`,
+              }}
             />
             <div className="book-list-item">
               <Book

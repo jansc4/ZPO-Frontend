@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import { LoginDto, LoginResponseDto } from './dto/login.dto';
 import { CreateBookDto, GetBookDto } from './dto/book.dto';
 import { GetUserDto, RegisterDto } from './dto/user.dto';
-import { CreateRentalDto, GetRentalDto } from './dto/rental.dto';
+import { CreateRentalDto, GetRentalDto, ReturnBookDto } from './dto/rental.dto';
 
 export type ClientResponse<T> = {
   success: boolean;
@@ -172,6 +172,67 @@ export class LibraryClient {
     try {
       const response: AxiosResponse<GetRentalDto[]> =
         await this.client.get(`/api/rentals`);
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError: AxiosError<Error, any> = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+  public async deleteRental(id: number): Promise<ClientResponse<boolean>> {
+    try {
+      const response: AxiosResponse<boolean> = await this.client.delete(
+        `/api/rentals/${id}`,
+      );
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError: AxiosError<Error> = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: false,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+  public async deleteUser(id: number): Promise<ClientResponse<boolean>> {
+    try {
+      const response: AxiosResponse<boolean> = await this.client.delete(
+        `/api/users/${id}`,
+      );
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError: AxiosError<Error> = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: false,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+  public async returnBook(data: {
+    loanId: number;
+    returnDate: Date;
+  }): Promise<ClientResponse<ReturnBookDto | null>> {
+    try {
+      const response: AxiosResponse<ReturnBookDto> = await this.client.post(
+        '/api/rentals/return',
+        data,
+      );
       return {
         success: true,
         data: response.data,

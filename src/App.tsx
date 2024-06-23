@@ -13,6 +13,7 @@ import AddRental from './add-rental/AddRental';
 import BooksPage from './books/BooksPage';
 import UsersPage from './users/UsersPage';
 import RentalsPage from './rentals/RentalsPage';
+import ReturnBook from './return-book/ReturnBook';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             </Route>
             <Route path="loans" element={<RentalsPage />}>
               <Route path="add" element={<AddRental />} />
+              <Route path="return" element={<ReturnBook />} />
             </Route>
           </Route>
         </Routes>

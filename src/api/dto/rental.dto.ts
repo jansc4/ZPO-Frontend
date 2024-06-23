@@ -15,3 +15,7 @@ export class CreateRentalDto {
   rentalDate: Date | undefined;
   endRentalDate: Date | undefined;
 }
+export class ReturnBookDto {
+  loanId: number | undefined;
+  returnDate: Date | undefined;
+}

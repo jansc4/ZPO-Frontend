@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { List, ListItem, Checkbox, ListSubheader } from '@mui/material';
 import User from '../user/User';
 import './UsersList.css';
@@ -6,17 +6,17 @@ import { GetUserDto } from '../api/dto/user.dto';
 
 interface UserListProps {
   users: GetUserDto[];
+  checked: number[];
+  setChecked: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
-function UserList({ users }: UserListProps) {
-  const [checked, setChecked] = useState<number[]>([]);
-
-  const handleToggle = (index: number) => () => {
-    const currentIndex = checked.indexOf(index);
+function UserList({ users, checked, setChecked }: UserListProps) {
+  const handleToggle = (userId: number) => () => {
+    const currentIndex = checked.indexOf(userId);
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
-      newChecked.push(index);
+      newChecked.push(userId);
     } else {
       newChecked.splice(currentIndex, 1);
     }
@@ -26,8 +26,6 @@ function UserList({ users }: UserListProps) {
 
   return (
     <div className="user-list-container">
-      {' '}
-      {/* Załóżmy, że masz odpowiednie klasy CSS */}
       <List
         className="user-list"
         subheader={
@@ -36,17 +34,23 @@ function UserList({ users }: UserListProps) {
           </ListSubheader>
         }
       >
-        {users.map((user, index) => (
-          <ListItem key={index} dense button onClick={handleToggle(index)}>
+        {users.map((user) => (
+          <ListItem
+            key={user.userId}
+            dense
+            button
+            onClick={handleToggle(user.userId || 0)}
+          >
             <Checkbox
               edge="start"
-              checked={checked.indexOf(index) !== -1}
+              checked={checked.indexOf(user.userId || 0) !== -1}
               tabIndex={-1}
               disableRipple
-              inputProps={{ 'aria-labelledby': `checkbox-list-label-${index}` }}
+              inputProps={{
+                'aria-labelledby': `checkbox-list-label-${user.userId}`,
+              }}
             />
             <div className="user-list-item">
-              {' '}
               <User
                 userId={user.userId || 0}
                 userName={user.userName || ''}

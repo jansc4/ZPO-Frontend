@@ -1,0 +1,17 @@
+.return-book {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: auto; /* Centrowanie formularza */
+}
+
+.return-book .text-field {
+    margin-bottom: 16px;
+}
+
+.return-book .submit-button {
+    margin-top: 16px;
+}
